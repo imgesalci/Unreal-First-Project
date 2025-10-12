@@ -13,6 +13,10 @@ Content
 
 .vscode
 .vs
+.idea/
+.DS_Store
+Thumbs.db
+
 *.VC.db
 *.opensdf
 *.opendb
@@ -21,3 +25,5 @@ Content
 *.suo
 *.xcodeproj
 *.xcworkspace
+*.xcuserstate
+*.xccheckout

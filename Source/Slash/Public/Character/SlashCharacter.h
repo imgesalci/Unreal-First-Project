@@ -17,6 +17,7 @@ class SLASH_API ASlashCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ASlashCharacter();
+	virtual void Jump() override;
 
 protected:
 	// Called when the game starts or when spawned
@@ -28,12 +29,27 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Input)
 	UInputAction *MovementAction;
 
-	void Move(const FInputActionValue &Value);
-
 	UPROPERTY(EditAnywhere, Category = Input);
 	UInputAction *LookAction;
 
+	UPROPERTY(EditAnywhere, Category = Input);
+	UInputAction *JumpAction;
+
+	UPROPERTY(EditAnywhere, Category = Input);
+	UInputAction *EKeyAction;
+
+	UPROPERTY(EditAnywhere, Category = Input);
+	UInputAction *AttackAction;
+
+	UPROPERTY(EditAnywhere, Category = Input);
+	UInputAction *DodgeAction;
+
+	void Move(const FInputActionValue &Value);
 	void Look(const FInputActionValue &Value);
+
+	void EKeyPressed();
+	virtual void Attack();
+	void Dodge();
 
 public:
 	// Called every frame

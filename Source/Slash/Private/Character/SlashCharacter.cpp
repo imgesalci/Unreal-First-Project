@@ -35,13 +35,17 @@ void ASlashCharacter::Tick(float DeltaTime)
 
 void ASlashCharacter::Move(const FInputActionValue &Value)
 {
+	// if (ActionState != EActionState::EAS_Unoccupied)
+	//	return;
 	const FVector2D MovementVector = Value.Get<FVector2D>();
 
-	const FVector Forward = GetActorForwardVector();
-	AddMovementInput(Forward, MovementVector.Y);
+	const FRotator Rotation = Controller->GetControlRotation();
+	const FRotator YawRotation(0.f, Rotation.Yaw, 0.f);
 
-	const FVector Right = GetActorRightVector();
-	AddMovementInput(Right, MovementVector.X);
+	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	AddMovementInput(ForwardDirection, MovementVector.Y);
+	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+	AddMovementInput(RightDirection, MovementVector.X);
 }
 
 void ASlashCharacter::Look(const FInputActionValue &Value)
@@ -55,7 +59,23 @@ void ASlashCharacter::Look(const FInputActionValue &Value)
 	}
 }
 
-// Called to bind functionality to input
+void ASlashCharacter::EKeyPressed()
+{
+	return;
+}
+void ASlashCharacter::Attack()
+{
+	return;
+}
+void ASlashCharacter::Dodge()
+{
+	return;
+}
+void ASlashCharacter::Jump()
+{
+	Super::Jump();
+}
+
 void ASlashCharacter::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -64,5 +84,9 @@ void ASlashCharacter::SetupPlayerInputComponent(UInputComponent *PlayerInputComp
 	{
 		EnhancedInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, &ASlashCharacter::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ASlashCharacter::Look);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ASlashCharacter::Jump);
+		EnhancedInputComponent->BindAction(EKeyAction, ETriggerEvent::Triggered, this, &ASlashCharacter::EKeyPressed);
+		EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &ASlashCharacter::Attack);
+		EnhancedInputComponent->BindAction(DodgeAction, ETriggerEvent::Triggered, this, &ASlashCharacter::Dodge);
 	}
 }
