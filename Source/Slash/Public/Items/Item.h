@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -44,12 +42,12 @@ protected:
 	UFUNCTION()
 	virtual void OnSphereEndOverlap(UPrimitiveComponent *OverlappedComponent, AActor *OtherActor, UPrimitiveComponent *OtherComp, int32 OtherBodyIndex);
 
+	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly)
+	UStaticMeshComponent *ItemMesh;
+
 private:
 	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	float TimeConstant = 5.f;
-
-	UPROPERTY(VisibleAnyWhere)
-	UStaticMeshComponent *ItemMesh;
 
 	UPROPERTY(VisibleAnyWhere)
 	USphereComponent *Sphere;

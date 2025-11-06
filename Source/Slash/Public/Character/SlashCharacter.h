@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -9,6 +7,7 @@
 
 class UInputMappingContext;
 class UInputAction;
+class AItem;
 UCLASS()
 class SLASH_API ASlashCharacter : public ACharacter
 {
@@ -51,10 +50,16 @@ protected:
 	virtual void Attack();
 	void Dodge();
 
+private:
+	UPROPERTY(VisibleInstanceOnly)
+	AItem *OverlappingItem;
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent) override;
+
+	void SetOverlappingItem(AItem *Item) { OverlappingItem = Item; }
 };
