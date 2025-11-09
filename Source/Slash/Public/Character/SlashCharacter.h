@@ -2,12 +2,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "CharacterTypes.h"
 #include "InputActionValue.h"
 #include "SlashCharacter.generated.h"
 
 class UInputMappingContext;
 class UInputAction;
 class AItem;
+
 UCLASS()
 class SLASH_API ASlashCharacter : public ACharacter
 {
@@ -54,6 +56,8 @@ private:
 	UPROPERTY(VisibleInstanceOnly)
 	AItem *OverlappingItem;
 
+	ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -61,5 +65,6 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent) override;
 
-	void SetOverlappingItem(AItem *Item) { OverlappingItem = Item; }
+	FORCEINLINE void SetOverlappingItem(AItem *Item) { OverlappingItem = Item; }
+	FORCEINLINE ECharacterState GetCharacterState() const { return CharacterState; }
 };

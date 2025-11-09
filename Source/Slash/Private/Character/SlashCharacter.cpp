@@ -75,6 +75,7 @@ void ASlashCharacter::EKeyPressed()
 	{
 		// Attach weapon to right hand socket
 		OverlappingWeapon->Equip(GetMesh(), FName("hand_rSocket"));
+		CharacterState = ECharacterState::ECS_EquippedWeapon;
 	}
 }
 
