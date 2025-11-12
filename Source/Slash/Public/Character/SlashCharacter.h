@@ -9,6 +9,7 @@
 class UInputMappingContext;
 class UInputAction;
 class AItem;
+class UAnimMontage;
 
 UCLASS()
 class SLASH_API ASlashCharacter : public ACharacter
@@ -45,6 +46,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Input);
 	UInputAction *DodgeAction;
 
+	UPROPERTY(EditDefaultsOnly, Category = Montages)
+	UAnimMontage *AttackMontage;
+
 	void Move(const FInputActionValue &Value);
 	void Look(const FInputActionValue &Value);
 
@@ -52,11 +56,17 @@ protected:
 	virtual void Attack();
 	void Dodge();
 
+	UFUNCTION(BlueprintCallable)
+	void AttackEnd();
+
 private:
 	UPROPERTY(VisibleInstanceOnly)
 	AItem *OverlappingItem;
 
 	ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
+
+	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	EActionState ActionState = EActionState::EAS_Unoccupied;
 
 public:
 	// Called every frame

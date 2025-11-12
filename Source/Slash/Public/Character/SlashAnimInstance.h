@@ -19,10 +19,10 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	class ASlashCharacter *SlashCharacter;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Movement")
+	UPROPERTY(BlueprintReadOnly, Category = Movement)
 	class UCharacterMovementComponent *SlashCharacterMovement;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Movement")
+	UPROPERTY(BlueprintReadOnly, Category = Movement)
 	float GroundSpeed;
 
 	UPROPERTY(BlueprintReadOnly, Category = Movement)
@@ -30,4 +30,7 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Movement | Character State")
 	ECharacterState CharacterState;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Action State")
+	EActionState ActionState;
 };

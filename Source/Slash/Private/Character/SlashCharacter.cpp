@@ -82,7 +82,16 @@ void ASlashCharacter::EKeyPressed()
 // Placeholder for attack input
 void ASlashCharacter::Attack()
 {
-	return;
+	if (ActionState == EActionState::EAS_Unoccupied && CharacterState != ECharacterState::ECS_Unequipped)
+	{
+		UAnimInstance *AnimInstance = GetMesh()->GetAnimInstance();
+
+		if (AnimInstance && AttackMontage)
+		{
+			AnimInstance->Montage_Play(AttackMontage);
+		}
+		ActionState = EActionState::EAS_Attacking;
+	}
 }
 
 // Placeholder for dodge input
@@ -95,6 +104,11 @@ void ASlashCharacter::Dodge()
 void ASlashCharacter::Jump()
 {
 	Super::Jump();
+}
+
+void ASlashCharacter::AttackEnd()
+{
+	ActionState = EActionState::EAS_Unoccupied;
 }
 
 // Bind input actions to functions
